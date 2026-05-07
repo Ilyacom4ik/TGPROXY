@@ -13,6 +13,7 @@
 |-------------|--------------------------------------------------------------------------|----------------------------------|
 | **kort0881** | Автор и поддержка `telegram-proxy-collector` — сбор MTProto‑прокси, анализ секретов, мониторинг DPI и автоподдержка списков. | [GitHub: kort0881](https://github.com/kort0881) |
 | **Runnin4ik** | Автор **DPI Detector** — инструмента для проверки цензуры трафика (TCP 16–20 KB, DNS‑подмены, TLS/HTTP‑блоки). Встроенный компонент в `telegram-proxy-collector` через `lib/dpi-detector/main.py`. | [GitHub: Runnin4ik](https://github.com/Runnin4ik) |
+| **ComradeBingo** | Автор **Community Tools** (`Parser-telegram-proxies`, `Proxy-Telegram-Android`, `Proxy-telegram-windows`) — утилит для парсинга и проверки MTProto‑прокси с пингом и GUI‑поддержкой. | [GitHub: ComradeBingo](https://github.com/ComradeBingo) |
 
 ---
 
