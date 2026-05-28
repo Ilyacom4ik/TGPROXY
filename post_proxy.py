@@ -6,6 +6,10 @@ import requests
 # ===== НАСТРОЙКИ =====
 RU_URL = "https://raw.githubusercontent.com/Ilyacom4ik/TGPROXY/refs/heads/main/proxy_ru.txt"
 EU_URL = "https://raw.githubusercontent.com/Ilyacom4ik/TGPROXY/refs/heads/main/proxy_eu.txt"
+
+# 👇 ЖЁСТКАЯ ПРИВЯЗКА (временная, для проверки)
+FORCE_CHAT_ID = "-1003700039599"
+FORCE_TOPIC_ID = 63
 # =====================
 
 def get_country(ip):
@@ -40,11 +44,9 @@ def fetch_proxies(url, limit):
 
 def send_to_telegram(proxies):
     token = os.environ.get('TG_BOT_TOKEN')
-    chat_id = os.environ.get('TG_PROXY_CHAT_ID')
-    topic_id = os.environ.get('TG_PROXY_TOPIC_ID')  # ДОБАВЛЕНО
     
-    if not token or not chat_id:
-        print("❌ Не хватает секретов")
+    if not token:
+        print("❌ Нет TG_BOT_TOKEN")
         return
 
     keyboard = []
@@ -55,22 +57,22 @@ def send_to_telegram(proxies):
 
     keyboard.append([{"text": "📢 Наш канал", "url": "https://t.me/FreeCFGHub"}])
 
+    # Формируем payload с принудительными ID
     payload = {
-        "chat_id": chat_id,
+        "chat_id": FORCE_CHAT_ID,
+        "message_thread_id": FORCE_TOPIC_ID,
         "text": "✅ <b>Свежие MTProto прокси</b>\n\n📌 Нажми на кнопку с нужной страной",
         "parse_mode": "HTML",
         "reply_markup": {"inline_keyboard": keyboard}
     }
-    
-    # ДОБАВЛЕНО: если есть topic_id — отправляем в конкретную тему
-    if topic_id:
-        payload["message_thread_id"] = int(topic_id)
+
+    print(f"DEBUG: Отправляем в чат {FORCE_CHAT_ID}, тему {FORCE_TOPIC_ID}")
 
     url = f"https://api.telegram.org/bot{token}/sendMessage"
     try:
         resp = requests.post(url, json=payload, timeout=10)
         if resp.status_code == 200:
-            print(f"✅ Отправлено {len(proxies)} прокси")
+            print(f"✅ Отправлено {len(proxies)} прокси в тему {FORCE_TOPIC_ID}")
         else:
             print(f"❌ Ошибка: {resp.text}")
     except Exception as e:
