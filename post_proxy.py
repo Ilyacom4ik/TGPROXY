@@ -41,6 +41,8 @@ def fetch_proxies(url, limit):
 def send_to_telegram(proxies):
     token = os.environ.get('TG_BOT_TOKEN')
     chat_id = os.environ.get('TG_PROXY_CHAT_ID')
+    topic_id = os.environ.get('TG_PROXY_TOPIC_ID')  # ДОБАВЛЕНО
+    
     if not token or not chat_id:
         print("❌ Не хватает секретов")
         return
@@ -59,6 +61,10 @@ def send_to_telegram(proxies):
         "parse_mode": "HTML",
         "reply_markup": {"inline_keyboard": keyboard}
     }
+    
+    # ДОБАВЛЕНО: если есть topic_id — отправляем в конкретную тему
+    if topic_id:
+        payload["message_thread_id"] = int(topic_id)
 
     url = f"https://api.telegram.org/bot{token}/sendMessage"
     try:
