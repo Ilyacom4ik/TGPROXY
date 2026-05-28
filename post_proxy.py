@@ -8,8 +8,12 @@ import random
 RU_URL = "https://raw.githubusercontent.com/Ilyacom4ik/TGPROXY/refs/heads/main/proxy_ru.txt"
 EU_URL = "https://raw.githubusercontent.com/Ilyacom4ik/TGPROXY/refs/heads/main/proxy_eu.txt"
 
-MIN_RU_PROXIES = 2   # Минимум прокси из России
-TOTAL_PROXIES = 5    # Всего прокси в посте
+MIN_RU_PROXIES = 2
+TOTAL_PROXIES = 5
+
+# 👇 ЖЁСТКАЯ ПРИВЯЗКА (ЗАМЕНИ НА СВОИ ДАННЫЕ)
+FORCE_CHAT_ID = "-1003700039599"
+FORCE_TOPIC_ID = 63
 # =====================
 
 def get_country(ip):
@@ -53,11 +57,9 @@ def fetch_proxies(url, limit=None):
 
 def send_to_telegram(proxies):
     token = os.environ.get('TG_BOT_TOKEN')
-    chat_id = os.environ.get('TG_PROXY_CHAT_ID')
-    topic_id = os.environ.get('TG_PROXY_TOPIC_ID')
     
-    if not token or not chat_id:
-        print("❌ Не хватает секретов")
+    if not token:
+        print("❌ Нет TG_BOT_TOKEN")
         return
 
     keyboard = []
@@ -68,47 +70,42 @@ def send_to_telegram(proxies):
 
     keyboard.append([{"text": "📢 Наш канал", "url": "https://t.me/FreeCFGHub"}])
 
+    # Жёстко задаём чат и тему
     payload = {
-        "chat_id": chat_id,
+        "chat_id": FORCE_CHAT_ID,
+        "message_thread_id": FORCE_TOPIC_ID,
         "text": "✅ <b>Свежие MTProto прокси</b>\n\n📌 Нажми на кнопку с нужной страной",
         "parse_mode": "HTML",
         "reply_markup": {"inline_keyboard": keyboard}
     }
-    
-    if topic_id:
-        payload["message_thread_id"] = int(topic_id)
+
+    print(f"DEBUG: Отправляем в чат {FORCE_CHAT_ID}, тему {FORCE_TOPIC_ID}")
 
     url = f"https://api.telegram.org/bot{token}/sendMessage"
     try:
         resp = requests.post(url, json=payload, timeout=10)
         if resp.status_code == 200:
-            print(f"✅ Отправлено {len(proxies)} прокси")
+            print(f"✅ Отправлено {len(proxies)} прокси в тему {FORCE_TOPIC_ID}")
         else:
             print(f"❌ Ошибка: {resp.text}")
     except Exception as e:
         print(f"❌ Ошибка: {e}")
 
 if __name__ == "__main__":
-    # Загружаем ВСЕ прокси из обоих источников
     all_ru = fetch_proxies(RU_URL)
     all_eu = fetch_proxies(EU_URL)
     
     print(f"📊 Загружено: RU = {len(all_ru)}, EU = {len(all_eu)}")
     
-    # Берём минимум MIN_RU_PROXIES из России
     ru_selected = all_ru[:MIN_RU_PROXIES] if len(all_ru) >= MIN_RU_PROXIES else all_ru
-    
-    # Сколько ещё прокси нужно добить из Европы
     needed = TOTAL_PROXIES - len(ru_selected)
     eu_selected = all_eu[:needed] if needed > 0 else []
     
-    # Если всё равно не хватает — добиваем из России (если есть)
     final_proxies = ru_selected + eu_selected
     if len(final_proxies) < TOTAL_PROXIES and len(all_ru) > len(ru_selected):
         extra = all_ru[len(ru_selected):TOTAL_PROXIES - len(eu_selected)]
         final_proxies += extra
     
-    # Перемешиваем, чтобы порядок был случайным
     random.shuffle(final_proxies)
     
     print(f"✅ Итоговых прокси: {len(final_proxies)} (Россия: {len(ru_selected)}, Европа: {len(eu_selected)})")
