@@ -8,17 +8,15 @@ import random
 RU_URL = "https://raw.githubusercontent.com/Ilyacom4ik/TGPROXY/refs/heads/main/proxy_ru.txt"
 EU_URL = "https://raw.githubusercontent.com/Ilyacom4ik/TGPROXY/refs/heads/main/proxy_eu.txt"
 
-MIN_RU_PROXIES = 2   # Минимум прокси из России
-TOTAL_PROXIES = 5    # Всего прокси в посте
+TOTAL_PROXIES = 10      # Всего прокси в посте
+MIN_RU_PROXIES = 3      # Минимум российских прокси в посте
 
-# Жёсткая привязка (замени на свои данные)
+# Жёсткая привязка
 FORCE_CHAT_ID = "-1003700039599"
 FORCE_TOPIC_ID = 63
 # =====================
 
-# ========== ВСЕ ФЛАГИ СТРАН МИРА ==========
 FLAGS = {
-    # Европа
     "ru": "🇷🇺", "nl": "🇳🇱", "us": "🇺🇸", "de": "🇩🇪",
     "fi": "🇫🇮", "fr": "🇫🇷", "gb": "🇬🇧", "ca": "🇨🇦",
     "jp": "🇯🇵", "sg": "🇸🇬", "ro": "🇷🇴", "ae": "🇦🇪",
@@ -33,7 +31,6 @@ FLAGS = {
     "is": "🇮🇸", "mt": "🇲🇹", "al": "🇦🇱", "mk": "🇲🇰",
     "ba": "🇧🇦", "md": "🇲🇩", "am": "🇦🇲", "ge": "🇬🇪",
     "az": "🇦🇿", "cy": "🇨🇾",
-    # Азия
     "cn": "🇨🇳", "hk": "🇭🇰", "mo": "🇲🇴", "tw": "🇹🇼",
     "kr": "🇰🇷", "kp": "🇰🇵", "mn": "🇲🇳", "vn": "🇻🇳",
     "th": "🇹🇭", "my": "🇲🇾", "id": "🇮🇩", "ph": "🇵🇭",
@@ -45,7 +42,6 @@ FLAGS = {
     "sa": "🇸🇦", "ye": "🇾🇪", "om": "🇴🇲", "qa": "🇶🇦",
     "bh": "🇧🇭", "jo": "🇯🇴", "lb": "🇱🇧", "sy": "🇸🇾",
     "ps": "🇵🇸",
-    # Америка
     "mx": "🇲🇽", "gt": "🇬🇹", "bz": "🇧🇿", "sv": "🇸🇻",
     "hn": "🇭🇳", "ni": "🇳🇮", "cr": "🇨🇷", "pa": "🇵🇦",
     "cu": "🇨🇺", "jm": "🇯🇲", "ht": "🇭🇹", "do": "🇩🇴",
@@ -55,7 +51,6 @@ FLAGS = {
     "gy": "🇬🇾", "sr": "🇸🇷", "ec": "🇪🇨", "pe": "🇵🇪",
     "bo": "🇧🇴", "py": "🇵🇾", "cl": "🇨🇱", "ar": "🇦🇷",
     "uy": "🇺🇾",
-    # Африка
     "eg": "🇪🇬", "ly": "🇱🇾", "tn": "🇹🇳", "dz": "🇩🇿",
     "ma": "🇲🇦", "mr": "🇲🇷", "sn": "🇸🇳", "gm": "🇬🇲",
     "gw": "🇬🇼", "gn": "🇬🇳", "ml": "🇲🇱", "bf": "🇧🇫",
@@ -66,7 +61,6 @@ FLAGS = {
     "zw": "🇿🇼", "na": "🇳🇦", "bw": "🇧🇼", "sz": "🇸🇿",
     "ls": "🇱🇸", "mg": "🇲🇬", "km": "🇰🇲", "mu": "🇲🇺",
     "sc": "🇸🇨",
-    # Австралия и Океания
     "pg": "🇵🇬", "sb": "🇸🇧", "fj": "🇫🇯", "vu": "🇻🇺",
     "nc": "🇳🇨", "pf": "🇵🇫", "ws": "🇼🇸", "to": "🇹🇴",
     "ki": "🇰🇮", "fm": "🇫🇲", "mh": "🇲🇭", "pw": "🇵🇼",
@@ -90,13 +84,11 @@ def extract_ip(proxy):
     match = re.search(r'server=([^&]+)', proxy)
     return match.group(1) if match else None
 
-def fetch_proxies(url, limit=None):
+def fetch_all_proxies(url):
     try:
         r = requests.get(url, timeout=15)
         if r.status_code == 200:
             proxies = [line.strip() for line in r.text.splitlines() if line.strip().startswith("tg://proxy?")]
-            if limit:
-                return proxies[:limit]
             return proxies
         return []
     except:
@@ -120,7 +112,7 @@ def send_to_telegram(proxies):
     payload = {
         "chat_id": FORCE_CHAT_ID,
         "message_thread_id": FORCE_TOPIC_ID,
-        "text": "✅ <b>Свежие MTProto прокси</b>\n\n📌 Нажми на кнопку с нужной страной",
+        "text": f"✅ <b>Свежие MTProto прокси ({len(proxies)} шт.)</b>\n\n📌 Нажми на кнопку с нужной страной",
         "parse_mode": "HTML",
         "reply_markup": {"inline_keyboard": keyboard}
     }
@@ -138,25 +130,22 @@ def send_to_telegram(proxies):
         print(f"❌ Ошибка: {e}")
 
 if __name__ == "__main__":
-    # Загружаем ВСЕ прокси из обоих источников
-    all_ru = fetch_proxies(RU_URL)
-    all_eu = fetch_proxies(EU_URL)
+    # Загружаем прокси
+    all_ru = fetch_all_proxies(RU_URL)
+    all_eu = fetch_all_proxies(EU_URL)
     
     print(f"📊 Загружено: RU = {len(all_ru)}, EU = {len(all_eu)}")
     
-    if len(all_ru) < MIN_RU_PROXIES:
-        print(f"⚠️ Внимание: в RU всего {len(all_ru)} прокси, будет взято сколько есть")
-    
-    # ВЫБИРАЕМ РАНДОМНО из России
+    # Сначала берём российские прокси (сколько есть, но не меньше MIN_RU_PROXIES)
     if len(all_ru) >= MIN_RU_PROXIES:
         ru_selected = random.sample(all_ru, MIN_RU_PROXIES)
     else:
-        ru_selected = all_ru.copy() if all_ru else []
+        ru_selected = all_ru.copy()
     
-    # Сколько ещё прокси нужно добить из Европы
+    # Сколько ещё нужно добить из европейских
     needed = TOTAL_PROXIES - len(ru_selected)
     
-    # ВЫБИРАЕМ РАНДОМНО из Европы
+    # Выбираем случайные из Европы
     if needed > 0 and all_eu:
         if len(all_eu) >= needed:
             eu_selected = random.sample(all_eu, needed)
@@ -165,16 +154,17 @@ if __name__ == "__main__":
     else:
         eu_selected = []
     
-    # Если всё равно не хватает — добиваем из России (рандомно из оставшихся)
+    # Объединяем
     final_proxies = ru_selected + eu_selected
+    
+    # Если всё равно не хватает — добиваем из России (если есть)
     if len(final_proxies) < TOTAL_PROXIES and len(all_ru) > len(ru_selected):
         remaining_ru = [p for p in all_ru if p not in ru_selected]
-        extra_needed = TOTAL_PROXIES - len(final_proxies)
         if remaining_ru:
-            extra = random.sample(remaining_ru, min(extra_needed, len(remaining_ru)))
+            extra = random.sample(remaining_ru, min(TOTAL_PROXIES - len(final_proxies), len(remaining_ru)))
             final_proxies += extra
     
-    # Перемешиваем финальный порядок
+    # Перемешиваем порядок
     random.shuffle(final_proxies)
     
     print(f"✅ Итоговых прокси: {len(final_proxies)} (Россия: {len(ru_selected)}, Европа: {len(eu_selected)})")
