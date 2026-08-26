@@ -1,46 +1,46 @@
-Verification log – 2026-08-26 07:41:44 UTC
-Execution time: 34.6s
+Verification log – 2026-08-26 08:37:24 UTC
+Execution time: 39.2s
 Total proxies tested: 20
 Working proxies found: 16
 ------------------------------------------------------------
 Timestamp                   Host:Port                      Status Ping     Region
 ------------------------------------------------------------
-2026-08-26T07:41:43.754689  sv2.just-money.co.uk:443       OK     0.096s   eu
-2026-08-26T07:41:43.761541  lux.lavazemi1.co.uk:2096       OK     0.1s     eu
-2026-08-26T07:41:43.831377  abo-ali-sina.basalam.info:443  OK     0.173s   eu
-2026-08-26T07:41:43.920216  sop.foodpatuy.ir:443           OK     0.26s    eu
-2026-08-26T07:41:43.948131  server.nl-arvancloud.co.uk:443 OK     0.288s   eu
-2026-08-26T07:41:43.951685  sub.iran-tehran.co.uk:443      OK     0.294s   eu
-2026-08-26T07:41:43.954026  sub.iran-tehran.co.uk:443      OK     0.294s   eu
-2026-08-26T07:41:43.962151  webhook.what-ever.co.uk:443    OK     0.302s   eu
-2026-08-26T07:41:43.962279  webhook.what-ever.co.uk:443    OK     0.301s   eu
-2026-08-26T07:41:43.966273  download.lv426.co.uk:443       OK     0.307s   eu
-2026-08-26T07:41:43.969805  app.what-ever.co.uk:443        OK     0.312s   eu
-2026-08-26T07:41:43.970461  ftp.jinxandjack.co.uk:443      OK     0.312s   eu
-2026-08-26T07:41:43.970822  ftp.jinxandjack.co.uk:443      OK     0.313s   eu
-2026-08-26T07:41:43.975043  webhook.vingardium.co.uk:443   OK     0.315s   eu
-2026-08-26T07:41:43.976291  mohandes.karshenasi.info:443   OK     0.318s   eu
-2026-08-26T07:41:43.978954  logs.jinxandjack.co.uk:443     OK     0.319s   eu
-2026-08-26T07:41:43.979199  webhook.vingardium.co.uk:443   OK     0.318s   eu
-2026-08-26T07:41:44.096740  icon.davazdah.info:443         OK     0.438s   eu
-2026-08-26T07:41:44.166992  valla.chemidonam.co.uk:443     OK     0.506s   eu
-2026-08-26T07:41:44.229365  sorfezh.malfilk-voq.co.uk:443  OK     0.571s   eu
+2026-08-26T08:37:23.978755  sv2.just-money.co.uk:443       OK     0.162s   eu
+2026-08-26T08:37:23.979571  ftp.jinxandjack.co.uk:443      OK     0.164s   eu
+2026-08-26T08:37:23.980096  ftp.jinxandjack.co.uk:443      OK     0.167s   eu
+2026-08-26T08:37:23.983434  lux.lavazemi1.co.uk:2096       OK     0.171s   eu
+2026-08-26T08:37:23.988888  server.nl-arvancloud.co.uk:443 OK     0.174s   eu
+2026-08-26T08:37:24.001702  logs.jinxandjack.co.uk:443     OK     0.187s   eu
+2026-08-26T08:37:24.032073  icon.davazdah.info:443         OK     0.219s   eu
+2026-08-26T08:37:24.102674  webhook.what-ever.co.uk:443    OK     0.29s    eu
+2026-08-26T08:37:24.102792  webhook.what-ever.co.uk:443    OK     0.286s   eu
+2026-08-26T08:37:24.105043  app.what-ever.co.uk:443        OK     0.289s   eu
+2026-08-26T08:37:24.133440  sub.iran-tehran.co.uk:443      OK     0.319s   eu
+2026-08-26T08:37:24.133536  sub.iran-tehran.co.uk:443      OK     0.317s   eu
+2026-08-26T08:37:24.136916  webhook.vingardium.co.uk:443   OK     0.322s   eu
+2026-08-26T08:37:24.146064  webhook.vingardium.co.uk:443   OK     0.333s   eu
+2026-08-26T08:37:24.147856  download.lv426.co.uk:443       OK     0.334s   eu
+2026-08-26T08:37:24.170646  sop.foodpatuy.ir:443           OK     0.357s   eu
+2026-08-26T08:37:24.212020  valla.chemidonam.co.uk:443     OK     0.399s   eu
+2026-08-26T08:37:24.243220  mohandes.karshenasi.info:443   OK     0.429s   eu
+2026-08-26T08:37:24.339760  sorfezh.malfilk-voq.co.uk:443  OK     0.524s   eu
+2026-08-26T08:37:24.382420  abo-ali-sina.basalam.info:443  OK     0.57s    eu
 ------------------------------------------------------------
 
 Top 20 fastest proxies:
-  sv2.just-money.co.uk:443 | ping=0.096s | eu | 
-  lux.lavazemi1.co.uk:2096 | ping=0.1s | eu | 
-  abo-ali-sina.basalam.info:443 | ping=0.173s | eu | 
-  sop.foodpatuy.ir:443 | ping=0.26s | eu | 
-  server.nl-arvancloud.co.uk:443 | ping=0.288s | eu | 
-  sub.iran-tehran.co.uk:443 | ping=0.294s | eu | 
-  webhook.what-ever.co.uk:443 | ping=0.301s | eu | 
-  download.lv426.co.uk:443 | ping=0.307s | eu | /web.bale.ai
-  app.what-ever.co.uk:443 | ping=0.312s | eu | /web.bale.ai
-  ftp.jinxandjack.co.uk:443 | ping=0.312s | eu | 
-  webhook.vingardium.co.uk:443 | ping=0.315s | eu | /web.bale.ai
-  mohandes.karshenasi.info:443 | ping=0.318s | eu | 
-  logs.jinxandjack.co.uk:443 | ping=0.319s | eu | 
-  icon.davazdah.info:443 | ping=0.438s | eu | 
-  valla.chemidonam.co.uk:443 | ping=0.506s | eu | 
-  sorfezh.malfilk-voq.co.uk:443 | ping=0.571s | eu | 
+  sv2.just-money.co.uk:443 | ping=0.162s | eu | 
+  ftp.jinxandjack.co.uk:443 | ping=0.164s | eu | 
+  lux.lavazemi1.co.uk:2096 | ping=0.171s | eu | 
+  server.nl-arvancloud.co.uk:443 | ping=0.174s | eu | 
+  logs.jinxandjack.co.uk:443 | ping=0.187s | eu | 
+  icon.davazdah.info:443 | ping=0.219s | eu | 
+  webhook.what-ever.co.uk:443 | ping=0.286s | eu | /web.bale.ai
+  app.what-ever.co.uk:443 | ping=0.289s | eu | /web.bale.ai
+  sub.iran-tehran.co.uk:443 | ping=0.317s | eu | 
+  webhook.vingardium.co.uk:443 | ping=0.322s | eu | 
+  download.lv426.co.uk:443 | ping=0.334s | eu | /web.bale.ai
+  sop.foodpatuy.ir:443 | ping=0.357s | eu | 
+  valla.chemidonam.co.uk:443 | ping=0.399s | eu | 
+  mohandes.karshenasi.info:443 | ping=0.429s | eu | 
+  sorfezh.malfilk-voq.co.uk:443 | ping=0.524s | eu | 
+  abo-ali-sina.basalam.info:443 | ping=0.57s | eu | 
